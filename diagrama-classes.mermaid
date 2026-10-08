@@ -1,0 +1,79 @@
+classDiagram
+    direction TB
+
+    class Veiculo {
+        +str placa
+        +str modelo
+        +int ano
+        +Decimal valor_diaria
+        +bool disponivel
+        +verificar_disponibilidade() bool
+        +alterar_disponibilidade(disponivel)
+    }
+    class Carro {
+        +int quantidade_portas
+        +str tipo_combustivel
+        +exibir_dados() str
+    }
+    class Moto {
+        +int cilindradas
+        +str tipo_partida
+        +exibir_dados() str
+    }
+    class Caminhao {
+        +float capacidade_carga
+        +int quantidade_eixos
+        +exibir_dados() str
+    }
+    class Cliente {
+        +str nome_razao_social
+        +str documento
+        +str telefone
+        +atualizar_telefone(telefone)
+        +exibir_dados() str
+    }
+    class PessoaFisica {
+        +date data_nascimento
+        +calcular_idade(data_referencia) int
+    }
+    class PessoaJuridica {
+        +str nome_fantasia
+        +atualizar_nome_fantasia(nome)
+    }
+    class ContratoLocacao {
+        +date data_inicio
+        +date data_termino_prevista
+        +Decimal valor_total
+        +str status
+        +Cliente cliente
+        +Veiculo veiculo
+        +Condutor condutor
+        +finalizar_contrato()
+        +cancelar_contrato()
+        +exibir_dados() str
+    }
+    class Condutor {
+        +int identificador
+        +str nome
+        +str numero_cnh
+        +atualizar_cnh(numero_cnh)
+        +exibir_dados() str
+    }
+    class Manutencao {
+        +date data
+        +str tipo_servico
+        +Decimal custo
+        +Veiculo veiculo
+        +atualizar_custo(custo)
+        +exibir_detalhes() str
+    }
+
+    Veiculo <|-- Carro
+    Veiculo <|-- Moto
+    Veiculo <|-- Caminhao
+    Cliente <|-- PessoaFisica
+    Cliente <|-- PessoaJuridica
+    Cliente "1" -- "0..*" ContratoLocacao : realiza
+    Veiculo "1" -- "0..*" ContratoLocacao : participa
+    ContratoLocacao "1" *-- "1" Condutor : contém
+    Veiculo "1" -- "0..*" Manutencao : possui histórico
